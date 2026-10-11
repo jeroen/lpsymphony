@@ -1,3 +1,8 @@
+# Windows arm64: no prebuilt dll in WinLib, so link to SYMPHONY from Rtools (like Rsymphony)
+ifeq ($(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e 'cat(grepl("aarch64", R.version$$platform))'),TRUE)
+PKG_LIBS = -lSym -lCgl -lOsiClp -lClp -lOsi -lCoinUtils -lbz2 -lz -fopenmp
+CXX_STD = CXX14
+else
 ## so now the dlls are loaded correctly
 
 SHLIB: lpsymphony
@@ -12,4 +17,4 @@ R_symphony.o: lpsymphony
 lpsymphony: 
 		cp WinLib$(R_ARCH)/*.dll .
 		
-
+endif
